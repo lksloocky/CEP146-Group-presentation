@@ -77,6 +77,8 @@ Final Application
 - Add notes about dependencies and CI/CD
 - Add background research sources
 
+### Issue: Research software supply-chain concepts
+
 ### Content ideas
 # What Is a Software Supply Chain?
 
@@ -234,6 +236,8 @@ software supply-chain attacks.
 - file: research/github-security-response.md
 - Branch: research-security-response
 
+### issue: Research how npm and GitHub supply-chain attacks work
+
 ### Commit ideas
 - Add npm malware scanning research
 - Document GitHub Actions workflow protection
@@ -344,8 +348,7 @@ Member 4 could also be responsible for:
 -branch: developer-impact-and-conclusion
 - file: research/impact-and-conclusion.md
 
-### Suggested issue:
-Research developer impact and security recommendations
+### issue: Research developer impact and security recommendations
 
 ### Commit ideas:
 - Add developer security recommendations
