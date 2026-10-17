@@ -1,5 +1,4 @@
-markdown
-````
+
 # GitHub and npm Security Response in 2026
 
 GitHub and npm introduced several security measures in 2026 to reduce the risk of software supply-chain attacks. These changes focus on preventing malicious packages from reaching developers, stopping suspicious GitHub Actions workflows before execution, and reducing the risks of running untrusted pull-request code with privileged access.
@@ -12,7 +11,7 @@ Newly published packages can be scanned before they become available for install
 
 ### How It Works
 
-```text
+```
 Package Published
        |
        v
@@ -40,7 +39,6 @@ This measure helps address attacks in which compromised accounts or unauthorized
 
 ### How It Works
 
-text
 ```
 Workflow Triggered
         |
@@ -83,7 +81,6 @@ This attack pattern is commonly known as a pwn request.
 
 ### Vulnerable Workflow Pattern
 
-text
 ```
 Pull Request from a Fork
           |
@@ -109,7 +106,6 @@ The protection also applies to certain `workflow_run` workflows originating from
 
 ### Safer Workflow Pattern
 
-text
 ```
 Pull Request from a Fork
           |
