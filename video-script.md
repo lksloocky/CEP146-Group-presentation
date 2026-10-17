@@ -1,4 +1,4 @@
-# GitHub and npm Security Response in 2026 — 50-Second Presentation
+# GitHub and npm Security Response in 2026 — 40-Second Presentation
 
 talking about how they improved supply-chain security in 2026.
 
