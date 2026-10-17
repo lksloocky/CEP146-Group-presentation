@@ -26,6 +26,21 @@ compromise other repositories or publish more infected packages, allowing the at
 
 - **Spreading between repositories:** Malware can search a developer machine or CI/CD runner for additional credentials. Attackers can reuse those credentials to compromise more repositories, alter more packages, and continue the attack.
   [Github blog: Disrupting supply chain attacks on npm and github actions](https://github.blog/security/supply-chain-security/disrupting-supply-chain-attacks-on-npm-and-github-actions/)
+---
+# Workflow - Attack flow diagram
+```
+Attacker
+   ↓
+Steals credentials
+   ↓
+Compromises package/workflow
+   ↓
+Developer or CI/CD executes it
+   ↓
+Tokens / secrets stolen
+   ↓
+Attack spreads
+```
 
 
 ## Sources
