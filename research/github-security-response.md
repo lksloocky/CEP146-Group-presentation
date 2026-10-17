@@ -1,155 +1,162 @@
+markdown
+````
 # GitHub and npm Security Response in 2026
 
-In 2026, GitHub and npm introduced several security measures to reduce software supply-chain attacks. The changes focus on three critical stages: preventing malicious packages from reaching developers, stopping suspicious CI/CD workflows before they execute, and preventing untrusted pull-request code from running with privileged access.
+GitHub and npm introduced several security measures in 2026 to reduce the risk of software supply-chain attacks. These changes focus on preventing malicious packages from reaching developers, stopping suspicious GitHub Actions workflows before execution, and reducing the risks of running untrusted pull-request code with privileged access.
 
-The GitHub Blog
+## 1. npm Malware Scanning
 
-+3
+In July 2026, npm introduced publish-time malware scanning to help prevent malicious packages from reaching users.
 
-## 1. npm malware scanning
+Newly published packages can be scanned before they become available for installation. Depending on the scan results, suspicious packages may be held for additional review or blocked.
 
-Announced July 28, 2026
+### How It Works
 
-npm introduced automatic malware scanning at publish time. Newly published packages are scanned before they become available for installation, allowing npm to identify suspicious content before it reaches downstream users.
+```text
+Package Published
+       |
+       v
+  Malware Scan
+    /       \
+ Safe     Suspicious
+  |           |
+  v           v
+Available   Review / Block
+````
 
-GitHub Changelog
+### Key Benefits
 
-Package published
+- Early detection: Packages are scanned before they become available for installation.
+- Reduced exposure: Suspicious packages can be held for review or blocked.
+- Supply-chain protection: The scanning process helps reduce the risk of malicious dependencies reaching developers and automated build systems.
 
-Automatic malware scan
+Publish-time scanning adds an important preventive security layer, although it cannot guarantee that every malicious package will be detected.
 
-Safe
+## 2. GitHub Actions Workflow Protection
 
-Package becomes available for installation.
+In July 2026, GitHub introduced protections that can hold certain potentially malicious GitHub Actions workflow runs for human approval before execution.
 
-Suspicious
+This measure helps address attacks in which compromised accounts or unauthorized workflow changes are used to steal credentials, access secrets, or compromise CI/CD infrastructure.
 
-Package may be held for review or blocked.
+### How It Works
 
-Conceptual workflow based on npm's published policy.
+text
+```
+Workflow Triggered
+        |
+        v
+   Suspicious?
+    /      \
+   No      Yes
+   |        |
+   v        v
+  Run      Hold
+             |
+             v
+           Review
+             |
+             v
+      Approve or Reject
+```
 
-### How it works
+### Key Benefits
 
-- Scan before availability: A newly published package is checked before users can install that version.
-- Review or block: Depending on the findings, a package may proceed normally, be held for manual review, or be blocked.
-- Short publication delay: Most packages experience a delay of around five minutes, although scanning can take 15 minutes or longer during peak periods or for larger packages.
-- Additional safeguards for dual-use software: Maintainers of packages with security-sensitive capabilities that could resemble malware must declare the relevant functionality through `contentPolicy` metadata and provide a `DISCLOSURE` file. Additional publishing requirements apply to these packages.
-  GitHub Changelog
+- Human approval: Suspicious workflow runs can be reviewed before execution.
+- Reduced risk: Attackers have a harder time immediately running malicious workflows.
+- Credential protection: The approval checkpoint can help prevent unauthorized access to repository secrets and CI/CD resources.
 
-Why it matters: Previously, a malicious package could become installable as soon as it was published. Publish-time scanning introduces a preventive checkpoint, reducing the opportunity for malware to spread to developers and automated build systems. However, scanning only blocks malware that the detection systems can identify; it is not a guarantee that every published package is safe.
+This protection adds a human review step when a workflow is flagged as potentially malicious.
 
-## 2. GitHub Actions workflow protection
+## 3. Safer `pull_request_target` and `actions/checkout`
 
-Announced July 28, 2026
+In June 2026, GitHub introduced safer default behavior for `actions/checkout` to reduce the risk of executing untrusted pull-request code in privileged GitHub Actions workflows.
 
-GitHub introduced automatic protections that hold certain potentially malicious GitHub Actions workflow runs for human approval before execution. The measure responds to supply-chain attacks in which attackers compromise GitHub credentials and introduce malicious workflows to steal CI/CD credentials or launch further attacks.
+### Why Is `pull_request_target` Dangerous?
 
-GitHub Changelog
+The `pull_request_target` event allows workflows to access the base repository's security context, including its permissions, tokens, and potentially available secrets.
 
-+1
+This becomes dangerous when a workflow checks out and executes untrusted code submitted through a pull request, especially from a fork.
 
-### How the protection works
+For example, an attacker could submit a pull request containing a malicious build script. If a privileged workflow executes that script, the code may gain access to credentials or other resources available to the workflow.
 
-Workflow run triggered
+This attack pattern is commonly known as a pwn request.
 
-Does the run appear potentially malicious?
+### Vulnerable Workflow Pattern
 
-No
+text
+```
+Pull Request from a Fork
+          |
+          v
+Privileged GitHub Actions Workflow
+          |
+          v
+Checkout Untrusted Code
+          |
+          v
+Execute Malicious Code
+          |
+          v
+Potential Credential Theft
+or Repository Compromise
+```
 
-Workflow runs normally.
+### What Changed?
 
-Yes
+GitHub strengthened `actions/checkout` defaults to refuse common unsafe checkout patterns involving fork pull-request code in privileged workflows.
 
-Execution is held pending approval.
+The protection also applies to certain `workflow_run` workflows originating from pull-request events.
 
-Human review
+### Safer Workflow Pattern
 
-A repository collaborator with write access reviews and approves the run through an authenticated web session.
+text
+```
+Pull Request from a Fork
+          |
+          v
+Privileged Workflow
+          |
+          v
+Checkout Safety Checks
+          |
+     +----+----+
+     |         |
+   Safe      Unsafe
+     |         |
+     v         v
+  Proceed    Refuse
+```
 
-Approval is required only for runs flagged by the protection.
+### Key Benefits
 
-### Key details
+- Safer defaults: Common unsafe checkout patterns are blocked by default.
+- Reduced credential exposure: Untrusted code is less likely to execute with privileged repository access.
+- Defense in depth: Developers receive additional protection even if a workflow contains an unsafe checkout configuration.
 
-- Automatic protection: Repository owners do not need to configure this feature separately.
-- Execution is paused: A flagged workflow cannot run until an authorized collaborator approves it.
-- Scope: The protection applies to public repositories on GitHub.com. It was not added to GitHub Enterprise Server by this announcement.
-- Security benefit: A compromised account is less able to immediately execute a malicious workflow and extract credentials without a human review step.
-  GitHub Changelog
-
-Why it matters: GitHub Actions workflows can access repository tokens, secrets, and build infrastructure. Pausing suspicious runs creates an opportunity to identify unauthorized changes before they cause damage.
-
-## 3\. Safer `pull_request_target` and `actions/checkout`
-
-Announced June 18, 2026
-
-GitHub also strengthened the default behavior of `actions/checkout` to reduce the risk of executing untrusted pull-request code inside privileged GitHub Actions workflows. Version 7 introduced the protection, with enforcement subsequently backported to supported versions other than version 1.
-
-GitHub Changelog
-
-+1
-
-### Why `pull_request_target` can be dangerous
-
-The `pull_request_target` event is designed for workflows that need trusted repository access when responding to pull requests, including pull requests from forks. Unlike the standard `pull_request` event, it runs with the base repository's trust level and can access its `GITHUB_TOKEN`, repository or organization secrets, and default-branch cache scope.
-
-GitHub Docs
-
-The danger arises when a workflow checks out untrusted code from a contributor's fork and then executes that code.
-
-For example, an attacker could submit a pull request containing a malicious build script. If a privileged workflow checks out that script and runs a build or test command, the attacker's code may execute with the workflow's credentials. This attack pattern is known as a “pwn request.”
-
-### The vulnerable pattern
-
-Pull request from a fork
-
-Privileged `pull_request_target` workflow
-
-Untrusted code is executed
-
-Potential exposure of repository secrets, tokens, or other privileged resources.
-
-### What changed in June 2026?
-
-GitHub made `actions/checkout` refuse common unsafe patterns by default when a workflow triggered by `pull_request_target` attempts to check out a fork's pull-request code. The protection also covers `workflow_run` workflows when the originating event is a pull-request event.
-
-Examples of unsafe inputs include checking out the pull request's head or merge commit, or explicitly selecting the fork's repository.
-
-GitHub Changelog
-
-+1
-
-The safer behavior can be summarized as follows:
-
-| Workflow situation | Expected behavior |
-| --- | --- |
-| Trusted default-branch code | Continues to work normally. |
-| Fork pull-request code checked out through a protected privileged workflow | Checkout is refused by default. |
-| Workflow genuinely needs unsafe checkout behavior | An explicit `allow-unsafe-pr-checkout: true` opt-out is available after reviewing the risks. |
-
-The change does not eliminate every possible route for executing untrusted code. Workflows can still introduce risk by fetching code through other commands or executing untrusted artifacts. GitHub therefore recommends avoiding privileged triggers when they are unnecessary and never executing untrusted code with secrets or elevated tokens.
-
-GitHub Changelog
-
-+1
-
-Why it matters: The protection changes the default from relying entirely on developers to recognize a dangerous configuration to blocking a common vulnerable pattern automatically. It helps prevent a malicious contribution from turning a routine CI task into a compromise of the repository.
+These changes do not eliminate every possible way to execute untrusted code. Developers should still avoid unnecessary privileged triggers and should never execute untrusted code with secrets or elevated permissions.
 
 ## Conclusion
 
-GitHub and npm's 2026 changes address three distinct points in the software supply chain:
+GitHub and npm's 2026 security improvements address three important stages of the software supply chain.
 
-| Security measure | Main risk addressed | Preventive control |
+| Security Measure | Main Risk | Protection |
 | --- | --- | --- |
-| npm publish-time scanning | Malicious packages reaching users | Scan packages before installation availability |
-| GitHub Actions workflow approval | Compromised accounts launching malicious workflows | Hold suspicious runs for human approval |
-| Safer `actions/checkout` defaults | Untrusted pull-request code executing with elevated privileges | Refuse common unsafe fork checkouts by default |
+| npm malware scanning | Malicious packages reaching developers | Scan packages before installation availability |
+| GitHub Actions workflow protection | Suspicious workflows executing automatically | Hold flagged runs for human approval |
+| Safer `pull_request_target` defaults | Untrusted code executing with elevated privileges | Block common unsafe checkout patterns |
 
-Together, these measures demonstrate a shift toward security controls built directly into development platforms and workflows. Rather than relying exclusively on developers to detect threats after they appear, npm and GitHub add checkpoints that can interrupt attacks before malicious packages become available, workflows execute, or untrusted code gains access to privileged resources.
+Together, these measures demonstrate how development platforms are integrating security controls directly into software publishing, CI/CD execution, and code review.
 
-### Primary sources
+By introducing preventive checks at these stages, GitHub and npm help reduce the opportunity for attackers to distribute malware, abuse automation credentials, and compromise software development environments.
 
-1. GitHub — [npm publish-time malware scanning and dual-use metadata](<https://github.blog/changelog/2026-07-28-npm-publish-time-malware-scanning-and-dual-use-metadata/?utm_source=chatgpt.com>).
-2. GitHub — [GitHub Actions holds potentially malicious workflows for approval](<https://github.blog/changelog/2026-07-28-github-actions-holds-potentially-malicious-workflows-for-approval/?utm_source=chatgpt.com>).
-3. GitHub — [Safer `pull_request_target` defaults for GitHub Actions checkout](<https://github.blog/changelog/2026-06-18-safer-pull_request_target-defaults-for-github-actions-checkout/?utm_source=chatgpt.com>).
-4. GitHub Docs — [Securely using `pull_request_target`](<https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target?utm_source=chatgpt.com>).
-5. GitHub — [Disrupting supply chain attacks on npm and GitHub Actions](<https://github.blog/security/supply-chain-security/disrupting-supply-chain-attacks-on-npm-and-github-actions/?utm_source=chatgpt.com>).
+## References
+
+- GitHub Blog: [npm publish-time malware scanning and dual-use metadata](<https://github.blog/changelog/2026-07-28-npm-publish-time-malware-scanning-and-dual-use-metadata/?utm_source=chatgpt.com>)
+- GitHub Blog: [GitHub Actions holds potentially malicious workflows for approval](<https://github.blog/changelog/2026-07-28-github-actions-holds-potentially-malicious-workflows-for-approval/?utm_source=chatgpt.com>)
+- GitHub Blog: [Safer `pull_request_target` defaults for GitHub Actions checkout](<https://github.blog/changelog/2026-06-18-safer-pull_request_target-defaults-for-github-actions-checkout/?utm_source=chatgpt.com>)
+- GitHub Docs: [Securely using `pull_request_target`](<https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target?utm_source=chatgpt.com>)
+- GitHub Blog: [Disrupting supply chain attacks on npm and GitHub Actions](<https://github.blog/security/supply-chain-security/disrupting-supply-chain-attacks-on-npm-and-github-actions/?utm_source=chatgpt.com>)
+
+```
+
+```
