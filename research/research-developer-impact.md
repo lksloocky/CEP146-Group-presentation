@@ -1,1 +1,3 @@
-# Placeholder
+# Developer Impact!
+
+## Why Should Developers Care?
