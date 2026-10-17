@@ -35,10 +35,10 @@ Then flash:
 # Project topic per member
 | Member | Main research area | Main GitHub task | Video section |
 |---|---|---|---|
-| Member 1: Gustavo | What software supply-chain security is | Research notes + intro | Slide 1 |
-| Member 2 | How npm/GitHub attacks work | Attack-flow research + diagram | Slide 2 |
-| Member 3 | GitHub/npm response in 2026 | Security-response research | Slide 3 |
-| Member 4 | Developer impact + prevention | Conclusion + final review | Slide 4 |
+| Member 1: Alex | What software supply-chain security is | Research notes + intro | Slide 1 |
+| Member 2: Cesar | How npm/GitHub attacks work | Attack-flow research + diagram | Slide 2 |
+| Member 3: Gustavo | GitHub/npm response in 2026 | Security-response research | Slide 3 |
+| Member 4: Jake | Developer impact + prevention | Conclusion + final review | Slide 4 |
 
 ---
 ## Member 1: Background and definition
