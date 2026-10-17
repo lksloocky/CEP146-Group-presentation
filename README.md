@@ -1,119 +1,386 @@
-# Project Presentation: Software Development Current Event Topics
+## Shorter project version
+Topic
+# When Trusted Code Turns Dangerous: Software Supply-Chain Attacks in 2026
+The project focuses on one simple question:
+How are recent software supply-chain attacks changing the way developers use npm, GitHub Actions, and open-source dependencies?
 
-## Objective
-Students will research and present a recent or ongoing current event related to software development. The goal is to demonstrate understanding of contemporary topics, improve research and communication skills, and utilize GitHub for collaborative project development and material organization.
+GitHub reported in July 2026 that recent supply-chain attacks have targeted package repositories and CI/CD systems to steal credentials and spread malware. The GitHub Blog GitHub and npm have since introduced protections including publish-time npm malware scanning, approval holds for certain suspicious Actions workflows, and safer pull_request_target checkout behavior. The GitHub Blog
+4-slide presentation
+1. When trusted code turns dangerous
+   Introduce software supply-chain security and why dependencies matter.
+2. How the attack spreads
+   stolen credential → malicious package/workflow → execution → stolen secrets → more repositories
+3. GitHub and npm changed the defaults
+   npm scanning, suspicious-workflow approval, safer GitHub Actions checkout.
+4. Secure the chain, not just the app
+   Protect dependencies, credentials, and CI/CD automation.
+
+   ---
+## 2-minute video idea: “Break the Chain”
+0:00–0:08
+Show a terminal typing:
+npm install trusted-package
+
+Then flash:
+> TRUST?
+
+0:08–0:28: Speaker 1 introduces the problem.
+0:28–0:59: Speaker 2 explains the five-step attack chain.
+0:59–1:31: Speaker 3 explains the 2026 GitHub/npm response.
+1:31–1:55: Speaker 4 gives the developer takeaway.
+1:55–2:00: Finish with:
+**Secure the chain, not just the app.**
+
+----
+# Project topic per member
+| Member | Main research area | Main GitHub task | Video section |
+|---|---|---|---|
+| Member 1: Alex | What software supply-chain security is | Research notes + intro | Slide 1 |
+| Member 2: Cesar | How npm/GitHub attacks work | Attack-flow research + diagram | Slide 2 |
+| Member 3: Gustavo | GitHub/npm response in 2026 | Security-response research | Slide 3 |
+| Member 4: Jake | Developer impact + prevention | Conclusion + final review | Slide 4 |
+
+---
+## Member 1: Background and definition
+### Research question:
+What is a software supply chain, and why is it important to developers?
+Research:
+- What a software supply chain is
+- Dependencies and third-party libraries
+- npm packages
+- GitHub repositories
+- CI/CD pipelines
+- GitHub Actions
+- Why modern applications depend on code developers did not write themselves
+- Why this creates security risks
+  
+A useful concept to explain:
+
+```
+Developer's Code
+      +
+Dependencies
+      +
+Repository
+      +
+CI/CD Tools
+      =
+Final Application
+```
+
+### Create:
+- branch: research-background
+- file: `research/software-supply-chain-background.md`
+
+### commits ideas:
+- Add software supply-chain definition
+- Add notes about dependencies and CI/CD
+- Add background research sources
+
+### Issue: Research software supply-chain concepts
+
+### Content ideas
+# What Is a Software Supply Chain?
+
+A software supply chain includes the code, libraries, tools,
+services, and automated systems used to build and deliver software.
+
+Modern developers rarely write every component of an application
+themselves. They often depend on open-source libraries, packages,
+GitHub repositories, build tools, and CI/CD services.
+
+For example, a JavaScript application may use npm packages created
+and maintained by other developers.
+
+This makes software development faster, but it also creates a chain
+of trust. If one component in that chain is compromised, the final
+application may also be affected.
+
+Software supply-chain security therefore focuses on protecting not
+only an application's source code, but also the tools and
+dependencies used to create it.
+
+### Presentation main idea:
+Modern applications are not built only from the code developers write. They also depend on packages, repositories, and automated development tools.
+
+---
+## Member 2: How the attacks work
+### Research question:
+How can attackers use npm packages or GitHub workflows to compromise software projects?
+Research:
+- Compromised developer or maintainer accounts
+- Stolen authentication credentials
+- Malicious package updates
+- Malicious npm packages
+- Repository access tokens
+- GitHub Actions workflows
+- How attacks can spread between repositories
+- Why CI/CD systems are valuable targets
+The attack flow can be simplified to:
+```
+Attacker
+   ↓
+Steals credentials
+   ↓
+Compromises package/workflow
+   ↓
+Developer or CI/CD executes it
+   ↓
+Tokens / secrets stolen
+   ↓
+Attack spreads
+```
+
+### Content ideas
+# How Software Supply-Chain Attacks Work
+
+Instead of attacking the final application directly, an attacker
+may target one of the tools or dependencies used to build it.
+
+One possible attack begins when an attacker steals credentials
+belonging to a package maintainer or developer.
+
+The attacker may then gain access to a repository, package
+publishing account, or CI/CD system.
+
+If a malicious version of a trusted package is published, developers
+may install it believing it is legitimate.
+
+The malicious code may then attempt to steal additional credentials,
+API keys, or repository tokens.
+
+Those credentials can potentially be used to compromise additional
+projects.
+
+#### A simplified attack chain is:
+
+```
+Attacker -> Stolen Credentials -> Malicious Package or Workflow
+-> Execution -> Stolen Secrets -> Additional Compromise
+```
+### Create:
+- file: research/how-attacks-work.md
+- branch: research-attack-flow
+
+### Commit ideas
+- Document supply-chain attack process
+- Add credential theft research
+- Add attack-flow diagram
+
+---
+## Member 3: GitHub and npm response in 2026
+### This is probably the most important current-event section.
+Research question:
+What did GitHub and npm change in 2026 in response to software supply-chain attacks?
+Research these three areas:
+1. npm malware scanning
+GitHub announced in July 2026 that newly published npm packages can be scanned before they become available for installation.
+
+The process can be represented as:
+```
+Package Published
+       ↓
+Malware Scan
+    /       \
+ Safe     Suspicious
+  ↓           ↓
+Available   Review / Block
+```
+
+2. Suspicious GitHub Actions workflows
+GitHub introduced protections that can hold certain potentially malicious workflows for human approval before execution.
+```
+Workflow
+    ↓
+Suspicious?
+   /    \
+ No     Yes
+ ↓       ↓
+Run     Hold
+         ↓
+      Review
+```
+3. Safer pull_request_target
+Research why running untrusted code through privileged GitHub Actions workflows can be dangerous.
+GitHub introduced safer actions/checkout behavior in June 2026 to reduce this attack pattern.
+Content to produce
+
+### Content ideas
+**GitHub and npm Security Response in 2026**
+
+GitHub introduced several changes during 2026 to reduce the risk of
+software supply-chain attacks.
+
+- npm Malware Scanning:
+   - In July 2026, npm introduced publish-time malware scanning.
+   - Newly published packages can be scanned before they become available
+     for users to install.
+   - Suspicious packages may be held for additional review or blocked.
+
+- GitHub Actions Workflow Protection
+   - GitHub also introduced protections that can hold potentially
+   malicious workflow runs before they execute.
+   - A repository collaborator with the appropriate permissions can
+   review the workflow before deciding whether it should run.
+
+- Safer GitHub Actions Defaults
+   - GitHub also introduced safer behavior for workflows using
+   pull_request_target and actions/checkout.
+   - This reduces the risk of running untrusted pull-request code with
+   privileged repository access.
+   - These changes demonstrate how development platforms are adding
+   security controls directly into the software-development process.
+
+
+### Create:
+- file: research/github-security-response.md
+- Branch: research-security-response
+
+### issue: Research how npm and GitHub supply-chain attacks work
+
+### Commit ideas
+- Add npm malware scanning research
+- Document GitHub Actions workflow protection
+- Add pull_request_target security notes
+
+---
+## Member 4: Developer impact and prevention
+Research question:
+What should software developers learn from these attacks?
+Research:
+- Why developers should care
+- Dependency management
+- Multi-factor authentication
+- Protecting tokens and secrets
+- Least privilege
+- Reviewing dependencies
+- Reviewing pull requests
+- Workflow permissions
+- Keeping GitHub Actions updated
+- Monitoring automated builds
+- Removing unused dependencies
+
+The key argument should be:
+Modern Software Security
+=
+```
+Application Security
++
+Dependency Security
++
+Credential Security
++
+Repository Security
++
+CI/CD Security
+```
+
+## Create:
+- file: research/developer-impact.md
+- Branch: research/developer-impact
+---
+Member 4: Developer impact and prevention
+Research question:
+What should software developers learn from these attacks?
+Research:
+- Why developers should care
+- Dependency management
+- Multi-factor authentication
+- Protecting tokens and secrets
+- Least privilege
+- Reviewing dependencies
+- Reviewing pull requests
+- Workflow permissions
+- Keeping GitHub Actions updated
+- Monitoring automated builds
+- Removing unused dependencies
+
+The key argument should be:
+Modern Software Security
+=
+```
+Application Security
++
+Dependency Security
++
+Credential Security
++
+Repository Security
++
+CI/CD Security
+```
+
+## Content ideas
+# Impact on Software Developers
+
+- Software supply-chain attacks show that developers must protect more
+than the source code they write.
+
+- A secure application can still become compromised if one of its
+dependencies, development tools, credentials, or automated workflows
+is compromised.
+
+Developers can reduce these risks by:
+
+- reviewing third-party dependencies;
+- removing unnecessary packages;
+- enabling multi-factor authentication;
+- protecting API keys and access tokens;
+- limiting GitHub Actions permissions;
+- reviewing pull requests carefully;
+- keeping workflows and dependencies updated;
+- monitoring automated builds and security alerts.
+
+The important lesson is that software security now includes the
+entire development process.
+
+Developers must secure the chain that creates the application, not
+only the application itself.
+
+### Additional responsibility
+Member 4 could also be responsible for:
+- checking the final video is under the required time;
+- proofreading slides;
+- verifying sources;
+- adding the YouTube link to README.md.
+
+### Create:
+-branch: developer-impact-and-conclusion
+- file: research/impact-and-conclusion.md
+
+### issue: Research developer impact and security recommendations
+
+### Commit ideas:
+- Add developer security recommendations
+- Wrie project conclusion
+- Review final script for clarity and timing
 
 ---
 
-## Project Requirements
+## Presentation section
+About 20–25 seconds.
+This member handles Slide 4 and the conclusion:
+Securing the final application is no longer enough. Developers must also secure the software supply chain that creates it.
 
-| Item | Description |
-|------|-------------|
-| **Topic** | Any current event related to software development (e.g., new programming languages, software engineering trends, major software company news, emerging tools, or ethical challenges in AI). |
-| **Team Size** | 3–4 students per group |
-| **Presentation Format** | Pre-recorded (Public) **YouTube video** (Time: **2:30–3:00 minutes**) |
-| **Presentation Style** | Freestyle: Use any method (e.g., live recording, PowerPoint voiceover, screen recording) <br>**Note**: No AI-generated voices allowed |
-| **GitHub Use** | All project work (scripts, slides, media assets, documentation, etc.) must be uploaded to **GitHub**. Collaboration history (commits, branches, issues, pull requests, and discussions) will be assessed. |
+We have to create an issue for each member
+- Issue #1 → Member 1 → research-background
+- Issue #2 → Member 2 → research-attack-flow
+- Issue #3 → Member 3 → research-security-response
+- Issue #4 → Member 4 → developer-impact
 
----
-
-## Deliverables Checklist
-
-All items must be committed to the group's GitHub repository:
-
-- [ ] Research notes or draft write-up
-- [ ] Video script or outline
-- [ ] Visual slides (if used)
-- [ ] Final video YouTube link (in README)
-- [ ] Evidence of collaboration (issues, commits, pull requests, discussion threads, etc.)
-
----
-
-## Grading Breakdown
-
-| Component | Weight |
-|-----------|--------|
-| **Video Presentation** | 50% |
-| **GitHub Usage & Collaboration** | 50% |
-| **Total** | **100%** |
-
-> This project contributes **10% of your final course grade**.
-
----
-
-## Grading Rubric
-
-### A. Video Presentation – 50%
-
-| Criteria | Weight | Description |
-|----------|--------|-------------|
-| **Content Accuracy & Depth** | 20% | Topic is relevant, well-researched, and reflects a clear understanding of the current event in software development. Claims are supported by credible sources. |
-| **Clarity & Creativity** | 15% | Video is engaging, within the required time limit, and delivery is clear and confident. Freestyle formats are encouraged (live recording, slides, animation, etc.). |
-| **Structure & Flow** | 10% | Presentation has a clear introduction, body, and conclusion. Ideas are logically organized and easy to follow. |
-| **Technical Quality** | 5% | Audio and video are clear and watchable. Not overly dependent on one speaker. Pacing is appropriate throughout. |
-
----
-
-### B. GitHub Usage & Collaboration – 50%
-
-This section assesses how well your team uses GitHub as a professional collaboration platform — not just as a file storage tool. Evaluators will look at the full history of your repository to assess process, communication, and teamwork.
-
-| Criteria | Weight | Description |
-|----------|--------|-------------|
-| **Repository Setup & README** | 5% | Repository is well-organized with a clear `README.md` that includes: project title, team members (names and student numbers), topic summary, YouTube video link, and a brief description of each member's role. |
-| **Commit History & Regularity** | 10% | All team members have made meaningful commits throughout the project timeline. Commits are descriptive and reflect steady, distributed progress — not a single last-minute bulk upload. Commit messages should clearly describe what was changed and why. |
-| **Branch Usage** | 10% | The team creates and names branches appropriately for different tasks or features (e.g., `script-draft`, `slide-design`, `video-edit`). Work is done on branches before being merged into `main`, demonstrating an understanding of the Git branching workflow. |
-| **Issues for Task Tracking** | 10% | GitHub Issues are used to plan and track tasks. Each issue should have a clear title and description, be assigned to one or more team members, use labels (e.g., `research`, `editing`, `review`), and be closed with a reference to the resolving commit or pull request. |
-| **Pull Requests & Code Review** | 10% | Branches are merged into `main` via Pull Requests (PRs). PRs include a description of the changes made. Team members review and comment on each other's PRs before merging, demonstrating collaborative review practices. |
-| **Team Discussion (GitHub Discussions)** | 5% | The GitHub Discussions board is used for team communication and decision-making. This may include topic selection, task planning, feedback exchanges, or progress check-ins. Discussions should be substantive and show active participation from all members. |
-
-> **Note:** The goal of the GitHub component is to demonstrate that your team worked *together, over time, using real collaboration tools* — the same tools used by professional software development teams. A repository with only one contributor, no branches, or no issues will score poorly regardless of the final content quality.
-
----
-
-## Some Suggestions for Topics
-
-- OpenAI and AI coding assistants (e.g., GitHub Copilot)
-- Microsoft acquisition news or GitHub updates
-- Rise of low-code/no-code platforms
-- Programming language trends (e.g., Rust, Zig, or the decline of older languages)
-- Major cybersecurity incidents
-- Ethics of AI in software development
-- Open source movement and licensing changes
-
----
-
-## GitHub Best Practices for the Project
-
-- **README.md** should include:
-  - Project title and team members (names + student numbers)
-  - Topic summary (2–3 sentences)
-  - Link to the YouTube video. (Make it PUBLIC)
-  - Brief description of each member's contribution
-- Use **Issues** to break down the project into tasks before you start (e.g., "Write script draft", "Record voiceover", "Design slides").
-- Create **branches** for each task and merge via **Pull Requests** — avoid committing everything directly to `main`.
-- Use the **Discussions** board to document team decisions and conversations (e.g., choosing a topic, planning the video structure).
-- **Commit regularly** with clear messages. Each member should have visible contributions.
-- Assign issues and reviewers to distribute work fairly and make contributions traceable.
-
----
-
-## Submission Format
-
-- GitHub repository URL (must be public) containing all project materials.
-- Public YouTube video link embedded in the `README.md`.
-- Repository must show clear evidence of collaboration: branches, issues, pull requests, and discussions.
-
----
-
-## Summary: What Evaluators Will Look For
-
-| Area | What to Demonstrate |
-|------|---------------------|
-| Video | Clear, accurate, well-structured, and creatively presented |
-| README | Complete, organized, and informative |
-| Commits | Regular, descriptive, from all members |
-| Branches | Created and used for meaningful tasks |
-| Issues | Used to plan and track work, properly closed |
-| Pull Requests | Used to merge branches with peer review |
-| Discussions | Used for team communication and decisions |
+Then each person:
+```
+Research
+   ↓
+Commit notes
+   ↓
+Push branch
+   ↓
+Open Pull Request
+   ↓
+Another member reviews
+   ↓
+Make changes if required
+   ↓
+Merge to main
+```
