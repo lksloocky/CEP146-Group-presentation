@@ -1,4 +1,4 @@
-# Developer Impact!
+# Developer Impact! - Jake Lenny
 
 
 ## Why Should Developers Care?
@@ -22,6 +22,7 @@ Multi Factor Authentication is An Increasingly common but always critical safety
 On the other-hand, the MOST Important safety steps you can take, is to not write your SSH Keys or API information anywhere someone can access with just reading your GitHub.
 
 Sources:
+
 https://github.blog/security/supply-chain-security/disrupting-supply-chain-attacks-on-npm-and-github-actions/?utm_source=chatgpt.com
 
 https://getsecureslate.com/blog/github-security-breach-2026-vs-code-extension
