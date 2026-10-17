@@ -1,5 +1,6 @@
-# How Attackers Compromise Software Projects
+# How Software Supply-Chain Attacks Work
 
+## 1. How Attackers Compromise Software Projects
 Attackers can compromise a software project by stealing a developer’s or package maintainer’s credentials and using that access to modify trusted npm packages, repository code, or automated GitHub workflows. 
 When developers install the affected package, or when GitHub Actions executes the altered workflow, malicious code may steal additional tokens, secrets, and API keys. Those credentials can then be reused to 
 compromise other repositories or publish more infected packages, allowing the attack to spread through the software supply chain. 
@@ -27,7 +28,7 @@ compromise other repositories or publish more infected packages, allowing the at
 - **Spreading between repositories:** Malware can search a developer machine or CI/CD runner for additional credentials. Attackers can reuse those credentials to compromise more repositories, alter more packages, and continue the attack.
   [Github blog: Disrupting supply chain attacks on npm and github actions](https://github.blog/security/supply-chain-security/disrupting-supply-chain-attacks-on-npm-and-github-actions/)
 ---
-# Workflow - Attack flow diagram
+## 2. Workflow - Attack flow diagram
 ```
 Attacker
    ↓
@@ -41,6 +42,21 @@ Tokens / secrets stolen
    ↓
 Attack spreads
 ```
+## 3. Attack example: Shai-Hulud npm worm
+**The Shai-Hulud attack from September 2025** is the a great example for this research: 
+- compromised maintainer accounts,
+- malicious npm updates,
+- stolen credentials,
+- GitHub repositories,
+- Actions workflows,
+- and automatic spreading.
+
+[![Video Title](https://img.youtube.com/vi/nxoE214cYsc/maxresdefault.jpg)](https://www.youtube.com/watch?v=nxoE214cYsc)   
+
+> GitHub confirmed that attackers compromised npm maintainer accounts and inserted malicious post-install scripts into trusted JavaScript packages. Once installed, the malware searched for secrets and publishing credentials, then used stolen npm tokens to publish infected versions of other packages. GitHub removed more than 500 compromised packages during its response.
+[The GitHub Blog: Our plan for a more secure npm supply chain](https://github.blog/security/supply-chain-security/our-plan-for-a-more-secure-npm-supply-chain/)
+
+> Wiz’s technical analysis found that the malware also created public GitHub repositories containing stolen information, added malicious GitHub Actions workflows to repositories it could access, and used stolen credentials to continue spreading. [Wiz.io: Shai-Hulud npm supply chain attack](https://www.wiz.io/blog/shai-hulud-npm-supply-chain-attack)
 
 
 ## Sources
