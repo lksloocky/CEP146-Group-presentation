@@ -6,6 +6,8 @@ If You installed / Initial any non-explicitly trusted IDE extension, Installed A
 
 The 2026 Supply side attacks harmed developers and companies of all sizes and attacked the trust in GitHub security and livelihood regardless of size. over 30,000 GitHub repositories were attacked and compromised, including 4,000 breached in the Nx Console Trojan incident alone
 
+## How was Developers trust in GitHub and NPM's security affected?
+
 ## Dependency Management
 The key failing part of the attacks was not observing precaution when installing extensions and how you allowed to look through and access your code and IDE, in the case of the Nx Console Breach and other compromised extensions (which caused a ripple effect of other extensions getting compromised before GitHub and NPM brought the anti-malware hammer down) 
 
@@ -23,8 +25,11 @@ On the other-hand, the MOST Important safety steps you can take, is to not write
 
 Sources:
 
-https://github.blog/security/supply-chain-security/disrupting-supply-chain-attacks-on-npm-and-github-actions/?utm_source=chatgpt.com
+https://github.blog/security/supply-chain-security/disrupting-supply-chain-attacks-on-npm-and-github-actions
 
 https://getsecureslate.com/blog/github-security-breach-2026-vs-code-extension
 
-https://tanstack.com/blog/npm-supply-chain-compromise-postmortem?utm_source=chatgpt.com
+https://tanstack.com/blog/npm-supply-chain-compromise-postmortem
+
+https://www.tanium.com/blog/may-2026-github-breach
+
