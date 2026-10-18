@@ -7,6 +7,7 @@ If You installed / Initial any non-explicitly trusted IDE extension, Installed A
 The 2026 Supply side attacks harmed developers and companies of all sizes and attacked the trust in GitHub security and livelihood regardless of size. over 30,000 GitHub repositories were attacked and compromised, including 4,000 breached in the Nx Console Trojan incident alone
 
 ## How was Developers trust in GitHub and NPM's security affected?
+In spite of the shaking, and in many cases long term, affects of the attacks backlash against GitHub security systems were generally subdued. the major effects were (reasonably) anti-confidence in developers extensions, and a increase of weariness going forward. this was helped to not spiral into anti-confidence with GitHub and the NPM's anti-malware reforms making double checking disguised or unrecognized packages / extensions easier and more thoughtful as a process
 
 ## Dependency Management
 The key failing part of the attacks was not observing precaution when installing extensions and how you allowed to look through and access your code and IDE, in the case of the Nx Console Breach and other compromised extensions (which caused a ripple effect of other extensions getting compromised before GitHub and NPM brought the anti-malware hammer down) 
