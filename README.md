@@ -99,9 +99,9 @@ The research focuses on five connected areas:
 
 ## Deliverables
 
-- [ ] Research notes for all four presentation sections.
+- [x] Research notes for all four presentation sections.
 - [ ] Presentation script and supporting visual materials.
-- [ ] Credible sources supporting the main claims.
+- [x] Credible sources supporting the main claims.
 - [ ] Public YouTube video within the required 2:30–3:00 duration.
 - [ ] Final video link added to this README.
 - [ ] Evidence of collaboration through issues, commits, branches, and pull requests.
