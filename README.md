@@ -56,331 +56,122 @@ Research:
   
 A useful concept to explain:
 
-```
-Developer's Code
-      +
-Dependencies
-      +
-Repository
-      +
-CI/CD Tools
-      =
-Final Application
-```
+**Course:** CEP146  
+**Project type:** Group presentation  
+**Repository:** [CEP146-Group-presentation](https://github.com/lksloocky/CEP146-Group-presentation)
 
-### Create:
-- branch: research-background
-- file: `research/software-supply-chain-background.md`
+## Overview
 
-### commits ideas:
-- Add software supply-chain definition
-- Add notes about dependencies and CI/CD
-- Add background research sources
+This project explores how software supply-chain attacks threaten modern software development, particularly through compromised open-source dependencies, malicious npm packages, stolen credentials, and vulnerable GitHub Actions workflows.
 
-### Issue: Research software supply-chain concepts
+The project examines how these attacks happen, how GitHub and npm are responding to emerging threats, and what developers can do to protect their applications and development environments.
 
-### Content ideas
-# What Is a Software Supply Chain?
+Our central message is:
 
-A software supply chain includes the code, libraries, tools,
-services, and automated systems used to build and deliver software.
+> Secure the chain, not just the app.
 
-Modern developers rarely write every component of an application
-themselves. They often depend on open-source libraries, packages,
-GitHub repositories, build tools, and CI/CD services.
+## Objectives
 
-For example, a JavaScript application may use npm packages created
-and maintained by other developers.
+- Explain what a software supply chain is and why it matters.
+- Describe how attackers compromise packages, credentials, repositories, and CI/CD pipelines.
+- Investigate security protections introduced by GitHub and npm in 2026.
+- Present practical recommendations for reducing software supply-chain risks.
+- Demonstrate collaborative software development using GitHub branches, commits, issues, and pull requests.
 
-This makes software development faster, but it also creates a chain
-of trust. If one component in that chain is compromised, the final
-application may also be affected.
+## Presentation Structure
 
-Software supply-chain security therefore focuses on protecting not
-only an application's source code, but also the tools and
-dependencies used to create it.
+The presentation is organized into four sections.
 
-### Presentation main idea:
-Modern applications are not built only from the code developers write. They also depend on packages, repositories, and automated development tools.
+| Section | Topic | Research Focus |
+|---|---|---|
+| 1 | Understanding the Software Supply Chain | Dependencies, open-source packages, repositories, and CI/CD |
+| 2 | How Supply-Chain Attacks Work | Credential theft, malicious packages, compromised workflows, and attack propagation |
+| 3 | GitHub and npm Security Responses | Malware scanning, workflow protections, and safer checkout behavior |
+| 4 | Developer Impact and Prevention | Dependency management, secret protection, least privilege, and security practices |
 
----
-## Member 2: How the attacks work
-### Research question:
-How can attackers use npm packages or GitHub workflows to compromise software projects?
-Research:
-- Compromised developer or maintainer accounts
-- Stolen authentication credentials
-- Malicious package updates
-- Malicious npm packages
-- Repository access tokens
-- GitHub Actions workflows
-- How attacks can spread between repositories
-- Why CI/CD systems are valuable targets
-The attack flow can be simplified to:
-```
-Attacker
-   ↓
-Steals credentials
-   ↓
-Compromises package/workflow
-   ↓
-Developer or CI/CD executes it
-   ↓
-Tokens / secrets stolen
-   ↓
-Attack spreads
+## Team Responsibilities
+
+| Team Member | Responsibility | Presentation Section |
+|---|---|---|
+| Alex | Background research and definitions | 1 |
+| Cesar | Attack research and attack-flow diagram | 2 |
+| Gustavo | Research into GitHub and npm security responses | 3 |
+| Jake | Developer impact, recommendations, and final review | 4 |
+
+## Repository Structure
+
+```text
+CEP146-Group-presentation/
+├── README.md
+├── projectGuidelines.md
+├── LICENSE
+└── research/
+    ├── software-supply-chain-background.md
+    ├── how-attacks-work.md
+    ├── github-security-response.md
+    └── developer-impact.md
 ```
 
-### Content ideas
-# How Software Supply-Chain Attacks Work
+The research directory is the planned location for the team's individual research documents. Files should be added as the corresponding work is completed.
 
-Instead of attacking the final application directly, an attacker
-may target one of the tools or dependencies used to build it.
+## Branch Strategy
 
-One possible attack begins when an attacker steals credentials
-belonging to a package maintainer or developer.
+The project uses separate branches to organize research and support parallel collaboration.
 
-The attacker may then gain access to a repository, package
-publishing account, or CI/CD system.
+| Branch | Purpose |
+|---|---|
+| `main` | Integrate reviewed work and maintain the final project documentation |
+| `research-background` | Research software supply-chain concepts and dependencies |
+| `research-attack-flow` | Document attack techniques and illustrate the attack chain |
+| `research-security-response` | Investigate GitHub and npm security measures |
+| `research/developer-impact` | Document developer impact and prevention recommendations |
 
-If a malicious version of a trusted package is published, developers
-may install it believing it is legitimate.
+Branch names in this table describe the intended workflow and should be checked against the branches currently published on GitHub.
 
-The malicious code may then attempt to steal additional credentials,
-API keys, or repository tokens.
+## Collaboration Workflow
 
-Those credentials can potentially be used to compromise additional
-projects.
+Each team member should:
 
-#### A simplified attack chain is:
+1. Review the assigned research question and create or update a GitHub issue.
+2. Work in the appropriate research branch.
+3. Add research notes and cite reliable sources.
+4. Commit changes with clear, descriptive messages.
+5. Push the branch to GitHub and open a pull request.
+6. Request a review from another team member.
+7. Address feedback and merge approved changes into `main`.
 
-```
-Attacker -> Stolen Credentials -> Malicious Package or Workflow
--> Execution -> Stolen Secrets -> Additional Compromise
-```
-### Create:
-- file: research/how-attacks-work.md
-- branch: research-attack-flow
+The `main` branch should contain the integrated and reviewed version of the project.
 
-### Commit ideas
-- Document supply-chain attack process
-- Add credential theft research
-- Add attack-flow diagram
+## Security Topics
 
----
-## Member 3: GitHub and npm response in 2026
-### This is probably the most important current-event section.
-Research question:
-What did GitHub and npm change in 2026 in response to software supply-chain attacks?
-Research these three areas:
-1. npm malware scanning
-GitHub announced in July 2026 that newly published npm packages can be scanned before they become available for installation.
+The research focuses on five connected areas:
 
-The process can be represented as:
-```
-Package Published
-       ↓
-Malware Scan
-    /       \
- Safe     Suspicious
-  ↓           ↓
-Available   Review / Block
-```
+- **Dependency security:** Review third-party packages and remove unnecessary dependencies.
+- **Credential security:** Protect tokens, API keys, and developer accounts.
+- **Repository security:** Review changes and restrict access appropriately.
+- **CI/CD security:** Limit workflow permissions and inspect automated execution.
+- **Developer practices:** Enable multifactor authentication, monitor security alerts, and keep dependencies and workflows updated.
 
-2. Suspicious GitHub Actions workflows
-GitHub introduced protections that can hold certain potentially malicious workflows for human approval before execution.
-```
-Workflow
-    ↓
-Suspicious?
-   /    \
- No     Yes
- ↓       ↓
-Run     Hold
-         ↓
-      Review
-```
-3. Safer pull_request_target
-Research why running untrusted code through privileged GitHub Actions workflows can be dangerous.
-GitHub introduced safer actions/checkout behavior in June 2026 to reduce this attack pattern.
-Content to produce
+## Deliverables
 
-### Content ideas
-**GitHub and npm Security Response in 2026**
+- [x] Research notes for all four presentation sections.
+- [x] Presentation script and supporting visual materials.
+- [x] Credible sources supporting the main claims.
+- [x] Public YouTube video within the required 2:30–3:00 duration.
+- [x] Final video link added to this README.
+- [x] Evidence of collaboration through issues, commits, branches, and pull requests.
 
-GitHub introduced several changes during 2026 to reduce the risk of
-software supply-chain attacks.
+### Final Presentation
 
-- npm Malware Scanning:
-   - In July 2026, npm introduced publish-time malware scanning.
-   - Newly published packages can be scanned before they become available
-     for users to install.
-   - Suspicious packages may be held for additional review or blocked.
+**YouTube video:** _Link to be added._
 
-- GitHub Actions Workflow Protection
-   - GitHub also introduced protections that can hold potentially
-   malicious workflow runs before they execute.
-   - A repository collaborator with the appropriate permissions can
-   review the workflow before deciding whether it should run.
+## Project Guidelines
 
-- Safer GitHub Actions Defaults
-   - GitHub also introduced safer behavior for workflows using
-   pull_request_target and actions/checkout.
-   - This reduces the risk of running untrusted pull-request code with
-   privileged repository access.
-   - These changes demonstrate how development platforms are adding
-   security controls directly into the software-development process.
+See [projectGuidelines.md](projectGuidelines.md) for the assignment requirements, deliverables, and grading rubric.
 
+## License
 
-### Create:
-- file: research/github-security-response.md
-- Branch: research-security-response
+See [LICENSE](LICENSE) for the licensing terms applicable to this repository.
 
-### issue: Research how npm and GitHub supply-chain attacks work
-
-### Commit ideas
-- Add npm malware scanning research
-- Document GitHub Actions workflow protection
-- Add pull_request_target security notes
-
----
-## Member 4: Developer impact and prevention
-Research question:
-What should software developers learn from these attacks?
-Research:
-- Why developers should care
-- Dependency management
-- Multi-factor authentication
-- Protecting tokens and secrets
-- Least privilege
-- Reviewing dependencies
-- Reviewing pull requests
-- Workflow permissions
-- Keeping GitHub Actions updated
-- Monitoring automated builds
-- Removing unused dependencies
-
-The key argument should be:
-Modern Software Security
-=
-```
-Application Security
-+
-Dependency Security
-+
-Credential Security
-+
-Repository Security
-+
-CI/CD Security
-```
-
-## Create:
-- file: research/developer-impact.md
-- Branch: research/developer-impact
----
-Member 4: Developer impact and prevention
-Research question:
-What should software developers learn from these attacks?
-Research:
-- Why developers should care
-- Dependency management
-- Multi-factor authentication
-- Protecting tokens and secrets
-- Least privilege
-- Reviewing dependencies
-- Reviewing pull requests
-- Workflow permissions
-- Keeping GitHub Actions updated
-- Monitoring automated builds
-- Removing unused dependencies
-
-The key argument should be:
-Modern Software Security
-=
-```
-Application Security
-+
-Dependency Security
-+
-Credential Security
-+
-Repository Security
-+
-CI/CD Security
-```
-
-## Content ideas
-# Impact on Software Developers
-
-- Software supply-chain attacks show that developers must protect more
-than the source code they write.
-
-- A secure application can still become compromised if one of its
-dependencies, development tools, credentials, or automated workflows
-is compromised.
-
-Developers can reduce these risks by:
-
-- reviewing third-party dependencies;
-- removing unnecessary packages;
-- enabling multi-factor authentication;
-- protecting API keys and access tokens;
-- limiting GitHub Actions permissions;
-- reviewing pull requests carefully;
-- keeping workflows and dependencies updated;
-- monitoring automated builds and security alerts.
-
-The important lesson is that software security now includes the
-entire development process.
-
-Developers must secure the chain that creates the application, not
-only the application itself.
-
-### Additional responsibility
-Member 4 could also be responsible for:
-- checking the final video is under the required time;
-- proofreading slides;
-- verifying sources;
-- adding the YouTube link to README.md.
-
-### Create:
--branch: developer-impact-and-conclusion
-- file: research/impact-and-conclusion.md
-
-### issue: Research developer impact and security recommendations
-
-### Commit ideas:
-- Add developer security recommendations
-- Wrie project conclusion
-- Review final script for clarity and timing
-
----
-
-## Presentation section
-About 20–25 seconds.
-This member handles Slide 4 and the conclusion:
-Securing the final application is no longer enough. Developers must also secure the software supply chain that creates it.
-
-We have to create an issue for each member
-- Issue #1 → Member 1 → research-background
-- Issue #2 → Member 2 → research-attack-flow
-- Issue #3 → Member 3 → research-security-response
-- Issue #4 → Member 4 → developer-impact
-
-Then each person:
-```
-Research
-   ↓
-Commit notes
-   ↓
-Push branch
-   ↓
-Open Pull Request
-   ↓
-Another member reviews
-   ↓
-Make changes if required
-   ↓
-Merge to main
-```
+## Final Video
+[![Video 2](https://img.youtube.com/vi/vLQOG6sRsyY/0.jpg)](https://www.youtube.com/watch?v=vLQOG6sRsyY)
