@@ -100,11 +100,11 @@ The research focuses on five connected areas:
 ## Deliverables
 
 - [x] Research notes for all four presentation sections.
-- [ ] Presentation script and supporting visual materials.
+- [x] Presentation script and supporting visual materials.
 - [x] Credible sources supporting the main claims.
-- [ ] Public YouTube video within the required 2:30–3:00 duration.
-- [ ] Final video link added to this README.
-- [ ] Evidence of collaboration through issues, commits, branches, and pull requests.
+- [x] Public YouTube video within the required 2:30–3:00 duration.
+- [x] Final video link added to this README.
+- [x] Evidence of collaboration through issues, commits, branches, and pull requests.
 
 ### Final Presentation
 
@@ -118,5 +118,5 @@ See [projectGuidelines.md](projectGuidelines.md) for the assignment requirements
 
 See [LICENSE](LICENSE) for the licensing terms applicable to this repository.
 
-## Video DEMO
-[![Video Title](https://img.youtube.com/vi/lxmDwD8UXDU/maxresdefault.jpg)](https://www.youtube.com/watch?v=lxmDwD8UXDU)  
+## Final Video
+[![Video 2](https://img.youtube.com/vi/vLQOG6sRsyY/0.jpg)](https://www.youtube.com/watch?v=vLQOG6sRsyY)
