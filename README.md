@@ -1,5 +1,60 @@
-# When Trusted Code Turns Dangerous
-## Software Supply-Chain Attacks in 2026
+## Shorter project version
+Topic
+# When Trusted Code Turns Dangerous: Software Supply-Chain Attacks in 2026
+The project focuses on one simple question:
+How are recent software supply-chain attacks changing the way developers use npm, GitHub Actions, and open-source dependencies?
+
+GitHub reported in July 2026 that recent supply-chain attacks have targeted package repositories and CI/CD systems to steal credentials and spread malware. The GitHub Blog GitHub and npm have since introduced protections including publish-time npm malware scanning, approval holds for certain suspicious Actions workflows, and safer pull_request_target checkout behavior. The GitHub Blog
+4-slide presentation
+1. When trusted code turns dangerous
+   Introduce software supply-chain security and why dependencies matter.
+2. How the attack spreads
+   stolen credential → malicious package/workflow → execution → stolen secrets → more repositories
+3. GitHub and npm changed the defaults
+   npm scanning, suspicious-workflow approval, safer GitHub Actions checkout.
+4. Secure the chain, not just the app
+   Protect dependencies, credentials, and CI/CD automation.
+
+   ---
+## 2-minute video idea: “Break the Chain”
+0:00–0:08
+Show a terminal typing:
+npm install trusted-package
+
+Then flash:
+> TRUST?
+
+0:08–0:28: Speaker 1 introduces the problem.
+0:28–0:59: Speaker 2 explains the five-step attack chain.
+0:59–1:31: Speaker 3 explains the 2026 GitHub/npm response.
+1:31–1:55: Speaker 4 gives the developer takeaway.
+1:55–2:00: Finish with:
+**Secure the chain, not just the app.**
+
+----
+# Project topic per member
+| Member | Main research area | Main GitHub task | Video section |
+|---|---|---|---|
+| Member 1: Alexander | What software supply-chain security is | Research notes + intro | Slide 1 |
+| Member 2: Cesar | How npm/GitHub attacks work | Attack-flow research + diagram | Slide 2 |
+| Member 3: Gustavo | GitHub/npm response in 2026 | Security-response research | Slide 3 |
+| Member 4: Jake | Developer impact + prevention | Conclusion + final review | Slide 4 |
+
+---
+## Member 1: Background and definition
+### Research question:
+What is a software supply chain, and why is it important to developers?
+Research:
+- What a software supply chain is
+- Dependencies and third-party libraries
+- npm packages
+- GitHub repositories
+- CI/CD pipelines
+- GitHub Actions
+- Why modern applications depend on code developers did not write themselves
+- Why this creates security risks
+  
+A useful concept to explain:
 
 **Course:** CEP146  
 **Project type:** Group presentation  
