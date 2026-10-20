@@ -5,3 +5,9 @@
 - Those credentials can be reused to publish infected package versions and spread the attack to more repositories. 
 
 > The key idea is that attackers target the development process itself, not only the finished application.
+
+
+
+[![Get visual](https://img.youtube.com/vi/JStUPNaOMi8/hqdefault.jpg)](https://youtu.be/JStUPNaOMi8)
+
+
